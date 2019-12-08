@@ -1,9 +1,6 @@
-Code for paper "Successor Uncertainties: Exploration and Uncertainty in Temporal Difference Learning" by David Janz<sup>\*</sup>, Jiri Hron<sup>\*</sup>, Przemysław Mazur, Katja Hofmann, José Miguel Hernández-Lobato, Sebastian Tschiatschek. NeurIPS 2019.
-<sup>\*</sup> Equal contribution
+# Successor Uncertainties, Tabular Experiments
 
-Paper is available at https://arxiv.org/abs/1810.06530.
-
-This code allows for reproduction of the tabular experiments. Click [here](https://djanz.org/successor_uncertainties/atari_code) for code to reproduce the Atari 2600 experiments.
+This code allows for reproduction of the tabular experiments in https://arxiv.org/abs/1810.06530. Click [here](https://djanz.org/successor_uncertainties/atari_code) for code to reproduce the Atari 2600 experiments.
 
 Clone && pip install the requirements. 
 
