@@ -17,7 +17,7 @@ Output will be saved to the data_out folder. To plot results (as in figure 2 in 
 ```
 python3 plotting/plot_scaling.py --file data_out/name_of_file.pkl --show
 ```
-Figure with results should display to screen, but will also be saved to the figs subfolder.
+Figure with results should display to screen, but will also be saved to figs/scaling.pdf.
 
 To reproduce Chain/Deep Sea experiments (figure 3 in paper) run
 ```
@@ -29,4 +29,4 @@ Then, to plot the results, run
 ```
 python3 plotting/plot_scaling.py --file data_out/su_deepsea_out.pkl --loglog --show
 ```
-Orange plot in that line is taken directly from Osband et al. 2018.
+Again, plot will be saved to figs/scaling_loglog.pdf. Orange line in the resulting plot is taken directly from Osband et al. 2018.
