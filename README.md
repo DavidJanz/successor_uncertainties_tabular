@@ -26,4 +26,4 @@ Then, to plot the results, run
 ```
 python3 plotting/plot_scaling.py --file data_out/su_deepsea_out.pkl --loglog --show
 ```
-Again, plot will be saved to figs/scaling_loglog.pdf. Orange line in the resulting plot is taken directly from Osband et al. 2018.
+Plot will be saved to figs/scaling_loglog.pdf. Orange line in the resulting plot is taken directly from Osband et al. 2018.
