@@ -19,4 +19,14 @@ python3 plotting/plot_scaling.py --file data_out/name_of_file.pkl --show
 ```
 Figure with results should display to screen, but will also be saved to the figs subfolder.
 
-Instructions to reproduce figure 3 (Chain/Deep Sea experiments) are coming soon.
+To reproduce Chain/Deep Sea experiments (figure 3 in paper) run
+```
+python3 run 5 specs/deepsea_su.json
+```
+Note, however, this might take a while and requires a lot of RAM. Edit deepsea_su.json and change env_size values to test on smaller versions of the MDP.
+
+Then, to plot the results, run
+```
+python3 plotting/plot_scaling.py --file data_out/su_deepsea_out.pkl --loglog --show
+```
+Orange plot in that line is taken directly from Osband et al. 2018.
