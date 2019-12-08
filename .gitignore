@@ -1,0 +1,9 @@
+*~
+.idea
+.pytest_cache
+__pycache__
+logs/*
+*.json
+*.stat
+figs/*
+data_out/gs_out_*
