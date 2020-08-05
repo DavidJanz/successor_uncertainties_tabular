@@ -4,10 +4,11 @@ from torch import nn
 
 class _OnlineVarianceABC(nn.Module):
     def __init__(self, input_size, n_action_dims, train_featuriser,
-                 test_featuriser, prior_variance, bias):
+                 test_featuriser, prior_variance, likelihood_variance, bias):
         super().__init__()
         self._train_featuriser = train_featuriser
         self._test_featuriser = test_featuriser
+        self.likelihood_variance = likelihood_variance
         self._bias = bias
 
         _covariance_matrix = prior_variance * torch.stack(
@@ -39,7 +40,7 @@ class _OnlineVarianceABC(nn.Module):
 
             self.xy_prods += reward * observation.squeeze()
             matvec_prod = self.covariance_matrix[a] @ observation.transpose(-1, -2)
-            scale = 1 + observation @ matvec_prod
+            scale = self.likelihood_variance + observation @ matvec_prod
             update_term = matvec_prod @ matvec_prod.transpose(-1, -2)
             scaled_update = 1 / scale * update_term
             self.covariance_matrix[a] -= scaled_update
@@ -49,8 +50,8 @@ class _OnlineVarianceABC(nn.Module):
 
 
 class OnlineVariance(_OnlineVarianceABC):
-    def __init__(self, input_size, train_featuriser, test_featuriser, prior_variance=1.0, bias=False):
-        super().__init__(input_size, 1, train_featuriser, test_featuriser, prior_variance, bias)
+    def __init__(self, input_size, train_featuriser, test_featuriser, prior_variance=1.0, likelihood_variance=1.0, bias=False):
+        super().__init__(input_size, 1, train_featuriser, test_featuriser, prior_variance, likelihood_variance, bias)
 
     def _featurise_and_select(self, observation, action):
         return self._train_featuriser(observation.unsqueeze(0))[:, action]
@@ -65,8 +66,8 @@ class OnlineVariance(_OnlineVarianceABC):
 
 
 class OnlineVarianceMulti(_OnlineVarianceABC):
-    def __init__(self, input_size, action_size, featuriser, prior_variance=1.0, bias=False):
-        super().__init__(input_size, action_size, featuriser, featuriser, prior_variance, bias)
+    def __init__(self, input_size, action_size, featuriser, prior_variance=1.0, likelihood_variance=1.0, bias=False):
+        super().__init__(input_size, action_size, featuriser, featuriser, prior_variance, likelihood_variance, bias)
 
     def _featurise_and_select(self, observation, action):
         return self._train_featuriser(observation).unsqueeze(0)
