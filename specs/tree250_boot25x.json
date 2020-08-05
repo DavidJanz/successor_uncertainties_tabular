@@ -1,4 +1,5 @@
 {
+    "env": "tree",
     "algorithm": "boot",
     "tag": "boot25x",
     "n_grad_steps": 250,

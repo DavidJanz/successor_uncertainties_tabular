@@ -10,9 +10,9 @@ class _OnlineVarianceABC(nn.Module):
         self._test_featuriser = test_featuriser
         self._bias = bias
 
-        _precision_matrix = 1 / prior_variance * torch.stack(
+        _covariance_matrix = prior_variance * torch.stack(
             [torch.eye(input_size + int(bias)) for _ in range(n_action_dims)])
-        self.covariance_matrix = nn.Parameter(_precision_matrix, requires_grad=False)
+        self.covariance_matrix = nn.Parameter(_covariance_matrix, requires_grad=False)
         self.xy_prods = torch.zeros([input_size])
 
     def _prepend_unit(self, observation):
