@@ -81,7 +81,7 @@ def config_from_args(args):
 
         # set up policy & uncertainty
         _ns.update(get_uncertainty(args.algorithm, _ns['model'],
-                                   _ns['env'].action_size, args.prior))
+                                   _ns['env'].action_size, args.prior, args.policy_arg))
         _ns.update(get_policy(args.algorithm, args.policy_arg, _ns['env'].action_size,
                               _ns['model'], _ns['uncertainty']))
 
@@ -156,15 +156,15 @@ def get_policy(algorithm, policy_arg, action_size, model, uncertainty):
     return {"policy": policy, "test_policy": policies.GreedyPolicy(action_size, model)}
 
 
-def get_uncertainty(algorithm, model, action_size, variance_prior):
+def get_uncertainty(algorithm, model, action_size, variance_prior, varuance_likelihood):
     if algorithm.startswith('sf'):
         uncertainty = OnlineVariance(
-            model.feature_size, train_featuriser=model.local_features,
-            test_featuriser=model.global_features, prior_variance=variance_prior, bias=False)
+            model.feature_size, train_featuriser=model.local_features, test_featuriser=model.global_features,
+            prior_variance=variance_prior, likelihood_variance=varuance_likelihood, bias=False)
         model.register_weights(uncertainty.mean_vector)
     elif algorithm in ('ube', 'bdqn'):
         uncertainty = OnlineVarianceMulti(
-            model.feature_size, action_size, model.local_features, variance_prior, bias=False)
+            model.feature_size, action_size, model.local_features, variance_prior, varuance_likelihood, bias=False)
     else:
         uncertainty = None
     return {"uncertainty": uncertainty}

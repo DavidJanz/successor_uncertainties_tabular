@@ -129,7 +129,7 @@ class ThompsonPolicy(Policy):
     def forward(self, state, n=20):
         samples = torch.normal(
             self._q_fn(state).repeat(n, 1),
-            self.beta * self.get_uncertainty(state).sqrt().repeat(n, 1)
+            self.get_uncertainty(state).sqrt().repeat(n, 1)
         ).view(n, -1, self.action_size)
 
         argmax_samples = torch.zeros_like(samples).scatter_(
