@@ -5,7 +5,7 @@
     "env_size": [20, 40, 60, 80, 100],
     "n_episodes": 60000,
     "prior": 1,
-    "policy_arg": 1,
+    "policy_arg": 5,
     "feature_size": 20,
     "exit_on_done": true
 }
